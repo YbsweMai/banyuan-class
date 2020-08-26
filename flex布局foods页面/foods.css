@@ -1,0 +1,110 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    height: 850px;
+    width: 320px;
+    background-color: #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.top{
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.food-list{
+    width: 320px;
+    height: 30px;
+    display: flex;
+    justify-content:space-between ;
+    align-items: center;
+    margin-top: 23px;
+}
+
+.food-name{
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.food-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.food-money{
+    margin-right: 10px;
+}
+
+.food-number{
+    display: flex;
+    justify-content: space-between;
+    width: 82px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    margin-right: 20px;
+    border-radius: 40px;
+}
+
+.minus{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+}
+
+.plus{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+}
+.number{
+    display: flex;
+    align-items: center;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.food-box{
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.total-container{
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+    border-top: 1px solid black;
+}
+
+.button{
+    width: 280px;
+    height: 40px;
+    border: 0;
+    border-radius: 20px 20px 20px 20px;
+    background-color: #0d9e65;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+
