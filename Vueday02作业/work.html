@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        #app{
+            height: 800px;
+            width: 550px;
+            margin: 0 auto;
+
+        }
+
+        .obj{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .name{
+            height: 30px;
+            line-height: 30px;
+            margin-right: 280px;
+        }
+
+        .price {
+            height: 30px;
+            line-height: 30px;
+
+        }
+
+        .counts{
+            display: flex;
+            align-items: center;
+            background-color: black;
+            border-radius: 15px;
+        }
+
+        .counts span{
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+        .cursor{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div :class="'obj'" v-for="(l,index) in list">
+            <span :class="'name'">{{l.name}}</span>
+            <span class="price">¥:{{l.price}}</span>
+            <div :class="'counts'">
+                <span class="cursor" @click="countPlus(l,index)">{{plus}}</span>
+                <span>{{l.count}}</span>
+                <span class="cursor" @click="countMinus(l,index)">{{minus}}</span>
+            </div>
+        </div>
+
+        <div>总价格:{{allPrice}}</div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    
+
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return{
+                list:[
+                    {name:'香蕉',price: 10,count: 1},
+                    {name:'苹果',price: 20,count: 2},
+                    {name:'榴莲',price: 30,count: 3},
+                    {name:'葡萄',price: 50,count: 1},
+                ],
+                plus:'+',
+                minus:'-',
+
+            }
+        },
+        computed:{
+            allPrice(){
+                let allCount = 0;
+
+                // for(let i = 0; i < this.list.length; i++){
+
+                //     allCount += this.list[i].price * this.list[i].count
+                    
+                // }
+
+                this.list.forEach(l => {
+                    allCount += l.price * l.count
+                });
+                
+                return allCount
+                
+            }
+        },
+
+        methods:{
+            countPlus(l,index){
+                
+                // if(l.count >= 4){
+                //     alert('不能再多啦');
+                //     return l.count == 0
+                // }
+                // return l.count = l.count + 1
+
+                // if(l.count < 4){
+                //     l.count += 1;
+                // }else{
+
+                //     alert('不能再多啦');
+
+                // }
+
+                /* 下标写法 */
+                let info = this.list[index]
+                if(info.count < 4){
+                    info.count += 1;
+                }else{
+                    alert('不能再多啦');
+                }
+
+            },
+            countMinus(l,index){
+
+                // if(l.count <= 1 ){
+                //     alert('不能再少啦')
+                //     return l.count == 0
+                // }
+                // return l.count = l.count - 1 ;
+
+                if(l.count > 1){
+                    l.count -= 1;
+                }else{
+                    alert('不能再少啦')
+                }
+
+            },
+        },
+        // watch:{
+        //     count(){
+        //         if(this.count > 4 ){
+        //             alert('不能再多啦')
+                    
+        //         }
+        //     }
+        // }
+    })
+</script>
+</html>

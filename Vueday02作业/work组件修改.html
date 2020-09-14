@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        #app{
+            height: 800px;
+            width: 550px;
+            margin: 0 auto;
+
+        }
+
+        .obj{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .name{
+            height: 30px;
+            line-height: 30px;
+            margin-right: 280px;
+        }
+
+        .price {
+            height: 30px;
+            line-height: 30px;
+
+        }
+
+        .counts{
+            display: flex;
+            align-items: center;
+            background-color: black;
+            border-radius: 15px;
+        }
+
+        .counts span{
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+        .cursor{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    let child = {
+        template:`
+            <div :class="'obj'">
+                <span :class="'name'">{{item.name}}</span>
+                <span class="price">¥:{{item.price}}</span>
+                <div :class="'counts'">
+                    <span class="cursor" @click="remove(item,index)">{{plus}}</span>
+                    <span>{{item.count}}</span>
+                    <span class="cursor" @click="add(item,index)">{{minus}}</span>
+                </div>    
+            </div>
+        `,
+        props:{
+            item:{
+                type:Object
+            },
+
+            plus:{
+                type:String
+            },
+            minus:{
+                type:String
+            }
+        },
+        methods: {
+                    remove(){
+                        console.log('减少一个' + this.item.name + '数量')
+                        this.$emit('remove', {
+                            ind: this.index
+                        })                        
+                        console.log(this.index)
+                    },
+                    add(){
+                        this.$emit('add',{
+                            ind:this.index
+                        })
+                        console.log(this.index)
+                    }
+                },
+    }
+
+    let father = {
+        template:`
+            <div>
+                <div  v-for="(item,index) in list">
+                    <child-Item :item="item" :index="index" :plus="plus" :minus="minus" @remove="remove" @add="add"></child-Item>
+                </div>
+                <div>总价格:{{allPrice}}</div>
+
+            </div>
+        `,
+        data(){
+            return{
+                list:[
+                    {name:'香蕉',price: 10,count: 1},
+                    {name:'苹果',price: 20,count: 2},
+                    {name:'榴莲',price: 30,count: 3},
+                    {name:'葡萄',price: 50,count: 1},
+                ],
+                plus:'+',
+                minus:'-',
+            }
+        },  
+        components:{
+                    'child-Item':child
+        },
+        computed:{
+            allPrice(){
+                let allCount = 0;
+
+                this.list.forEach(item => {
+                    allCount += item.price * item.count
+                });
+                
+                return allCount
+                
+            }
+        },
+        methods: {
+                    remove(data){
+                        console.log('父页面打印：', data)
+                        let info = this.list[data.ind]
+                        if(info.count < 2){
+                            alert('不能再少啦')
+                            return
+                        }
+                        info.count -= 1
+                    },
+                    add(data){
+                        let info = this.list[data.ind]
+                        if(info.count > 3){
+                            alert('不能再多啦')
+                            return
+                        }
+                        info.count += 1
+                    }
+                    
+                },
+    }
+
+    new Vue({
+        render:h=>h(father)
+    }).$mount('#app')
+</script>
+</html>
